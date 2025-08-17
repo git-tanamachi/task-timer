@@ -22,9 +22,22 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
+def applicationName = "com.hacoffice.task_timer"
+def flutterMinSdkVersion = 21
+def flutterTargetSdkVersion = 35
+
+def envFile = rootProject.file(".env")
+if (envFile.exists()) {
+    def props = new Properties()
+    envFile.withInputStream { props.load(it) }
+    applicationName = props.getProperty("APPLICATION_NAME", "com.hacoffice.task_timer")
+    flutterMinSdkVersion = props.getProperty("MIN_SDK_VERSION", "21").toInteger()
+    flutterTargetSdkVersion = props.getProperty("TARGET_SDK_VERSION", "35").toInteger()
+}
+
 android {
-    namespace "com.example.task_timer"
-    compileSdk flutter.compileSdkVersion
+    namespace applicationName
+    compileSdk flutterTargetSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
@@ -42,13 +55,14 @@ android {
 
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.example.task_timer"
+        applicationId applicationName
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
-        minSdkVersion flutter.minSdkVersion
-        targetSdkVersion flutter.targetSdkVersion
-        versionCode flutterVersionCode.toInteger()
-        versionName flutterVersionName
+        minSdkVersion flutterMinSdkVersion
+        targetSdkVersion flutterTargetSdkVersion
+        versionCode flutter.versionCode.toInteger()
+        versionName flutter.versionName
+        multiDexEnabled true
     }
 
     buildTypes {
@@ -64,4 +78,7 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    implementation "androidx.multidex:multidex:2.0.1"
+}
+
