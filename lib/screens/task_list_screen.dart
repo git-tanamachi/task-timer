@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:task_timer/screens/settings_screen.dart';
 import 'package:task_timer/screens/task_registration_screen.dart';
 import 'package:task_timer/models/task.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TaskListScreen extends StatefulWidget {
   const TaskListScreen({super.key});
@@ -29,12 +30,12 @@ class _TaskListScreenState extends State<TaskListScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: const Text('Confirm Deletion'),
-          content: const Text('Are you sure you want to delete this task?'),
+          title: Text(AppLocalizations.of(context)!.confirmDeletion),
+          content: Text(AppLocalizations.of(context)!.areYouSureDeleteTask),
           actions: <Widget>[
             TextButton(
               onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('Cancel'),
+              child: Text(AppLocalizations.of(context)!.cancel),
             ),
             TextButton(
               onPressed: () {
@@ -43,7 +44,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
                 });
                 Navigator.of(context).pop(true);
               },
-              child: const Text('Delete'),
+              child: Text(AppLocalizations.of(context)!.delete),
             ),
           ],
         );
@@ -55,7 +56,7 @@ class _TaskListScreenState extends State<TaskListScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Task List'),
+        title: Text(AppLocalizations.of(context)!.taskListTitle),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -69,8 +70,8 @@ class _TaskListScreenState extends State<TaskListScreen> {
         ],
       ),
       body: _tasks.isEmpty
-          ? const Center(
-              child: Text('No tasks yet. Add a new task!'),
+          ? Center(
+              child: Text(AppLocalizations.of(context)!.noTasksYet),
             )
           : ListView.builder(
               itemCount: _tasks.length,
@@ -90,16 +91,16 @@ class _TaskListScreenState extends State<TaskListScreen> {
                       context: context,
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: const Text('Confirm Deletion'),
-                          content: const Text('Are you sure you want to delete this task?'),
+                          title: Text(AppLocalizations.of(context)!.confirmDeletion),
+                          content: Text(AppLocalizations.of(context)!.areYouSureDeleteTask),
                           actions: <Widget>[
                             TextButton(
                               onPressed: () => Navigator.of(context).pop(false),
-                              child: const Text('Cancel'),
+                              child: Text(AppLocalizations.of(context)!.cancel),
                             ),
                             TextButton(
                               onPressed: () => Navigator.of(context).pop(true),
-                              child: const Text('Delete'),
+                              child: Text(AppLocalizations.of(context)!.delete),
                             ),
                           ],
                         );
@@ -116,9 +117,10 @@ class _TaskListScreenState extends State<TaskListScreen> {
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Notification: ${task.notificationTime.toLocal()}'),
                           Text(
-                              'Last Completed: ${task.lastCompletionTime?.toLocal() ?? 'N/A'}'),
+                              '${AppLocalizations.of(context)!.notification}: ${task.notificationTime.toLocal()}'),
+                          Text(
+                              '${AppLocalizations.of(context)!.lastCompleted}: ${task.lastCompletionTime?.toLocal() ?? AppLocalizations.of(context)!.na}'),
                         ],
                       ),
                       onTap: () {

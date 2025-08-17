@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key});
@@ -16,13 +17,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Settings'),
+        title: Text(AppLocalizations.of(context)!.settingsTitle),
       ),
       body: ListView(
         padding: const EdgeInsets.all(16.0),
         children: [
           SwitchListTile(
-            title: const Text('Enable Snooze'),
+            title: Text(AppLocalizations.of(context)!.enableSnooze),
             value: _snoozeEnabled,
             onChanged: (bool value) {
               setState(() {
@@ -34,7 +35,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             Column(
               children: [
                 ListTile(
-                  title: const Text('Snooze Count'),
+                  title: Text(AppLocalizations.of(context)!.snoozeCount),
                   trailing: SizedBox(
                     width: 100,
                     child: TextField(
@@ -54,7 +55,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                 ),
                 ListTile(
-                  title: const Text('Snooze Interval (minutes)'),
+                  title: Text(AppLocalizations.of(context)!.snoozeIntervalMinutes),
                   trailing: SizedBox(
                     width: 100,
                     child: TextField(

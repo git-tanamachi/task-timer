@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 enum NotificationCycle {
   daily,
@@ -34,7 +35,7 @@ class _TaskRegistrationScreenState extends State<TaskRegistrationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Task Registration'),
+        title: Text(AppLocalizations.of(context)!.taskRegistrationTitle),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -44,13 +45,13 @@ class _TaskRegistrationScreenState extends State<TaskRegistrationScreen> {
             children: [
               TextFormField(
                 controller: _taskNameController,
-                decoration: const InputDecoration(
-                  labelText: 'Task Name',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.taskName,
+                  border: const OutlineInputBorder(),
                 ),
                 validator: (value) {
                   if (value == null || value.isEmpty) {
-                    return 'Please enter a task name';
+                    return AppLocalizations.of(context)!.pleaseEnterTaskName;
                   }
                   return null;
                 },
@@ -58,15 +59,15 @@ class _TaskRegistrationScreenState extends State<TaskRegistrationScreen> {
               const SizedBox(height: 16.0),
               TextFormField(
                 controller: _descriptionController,
-                decoration: const InputDecoration(
-                  labelText: 'Description',
-                  border: OutlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: AppLocalizations.of(context)!.description,
+                  border: const OutlineInputBorder(),
                 ),
                 maxLines: 3,
               ),
               const SizedBox(height: 16.0),
               ListTile(
-                title: const Text('Notification Cycle'),
+                title: Text(AppLocalizations.of(context)!.notificationCycle),
                 trailing: DropdownButton<NotificationCycle>(
                   value: _selectedCycle,
                   onChanged: (NotificationCycle? newValue) {
@@ -74,18 +75,18 @@ class _TaskRegistrationScreenState extends State<TaskRegistrationScreen> {
                       _selectedCycle = newValue!;
                     });
                   },
-                  items: const <DropdownMenuItem<NotificationCycle>>[
+                  items: <DropdownMenuItem<NotificationCycle>>[
                     DropdownMenuItem(
                       value: NotificationCycle.daily,
-                      child: Text('Daily'),
+                      child: Text(AppLocalizations.of(context)!.daily),
                     ),
                     DropdownMenuItem(
                       value: NotificationCycle.weekly,
-                      child: Text('Weekly'),
+                      child: Text(AppLocalizations.of(context)!.weekly),
                     ),
                     DropdownMenuItem(
                       value: NotificationCycle.monthly,
-                      child: Text('Monthly'),
+                      child: Text(AppLocalizations.of(context)!.monthly),
                     ),
                   ],
                 ),
@@ -98,13 +99,13 @@ class _TaskRegistrationScreenState extends State<TaskRegistrationScreen> {
                   if (_formKey.currentState!.validate()) {
                     // Process data
                     ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
+                      SnackBar(content: Text(AppLocalizations.of(context)!.processingData)),
                     );
                     // For now, just pop the screen
                     Navigator.pop(context);
                   }
                 },
-                child: const Text('Save Task'),
+                child: Text(AppLocalizations.of(context)!.saveTask),
               ),
             ],
           ),
@@ -117,7 +118,7 @@ class _TaskRegistrationScreenState extends State<TaskRegistrationScreen> {
     switch (_selectedCycle) {
       case NotificationCycle.daily:
         return ListTile(
-          title: const Text('Notification Time'),
+          title: Text(AppLocalizations.of(context)!.notificationTime),
           trailing: TextButton(
             onPressed: () async {
               final TimeOfDay? picked = await showTimePicker(
@@ -137,11 +138,19 @@ class _TaskRegistrationScreenState extends State<TaskRegistrationScreen> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Select Weekdays:', style: TextStyle(fontSize: 16)),
+            Text(AppLocalizations.of(context)!.selectWeekdays, style: const TextStyle(fontSize: 16)),
             Wrap(
               spacing: 8.0,
               children: List.generate(7, (index) {
-                final weekdayNames = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+                final weekdayNames = [
+                  AppLocalizations.of(context)!.mon,
+                  AppLocalizations.of(context)!.tue,
+                  AppLocalizations.of(context)!.wed,
+                  AppLocalizations.of(context)!.thu,
+                  AppLocalizations.of(context)!.fri,
+                  AppLocalizations.of(context)!.sat,
+                  AppLocalizations.of(context)!.sun,
+                ];
                 return ChoiceChip(
                   label: Text(weekdayNames[index]),
                   selected: _selectedWeekdays[index],
@@ -159,7 +168,7 @@ class _TaskRegistrationScreenState extends State<TaskRegistrationScreen> {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text('Select Days of Month:', style: TextStyle(fontSize: 16)),
+            Text(AppLocalizations.of(context)!.selectDaysOfMonth, style: const TextStyle(fontSize: 16)),
             Wrap(
               spacing: 8.0,
               children: List.generate(31, (index) {

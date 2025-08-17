@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:task_timer/screens/task_list_screen.dart'; // Assuming this will be your main screen
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -27,17 +28,17 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             // You can add your app logo here
-            FlutterLogo(size: 100),
-            SizedBox(height: 20),
+            const FlutterLogo(size: 100),
+            const SizedBox(height: 20),
             Text(
-              'Task Timer',
-              style: TextStyle(
+              AppLocalizations.of(context)!.splashScreenTitle,
+              style: const TextStyle(
                 fontSize: 24,
                 fontWeight: FontWeight.bold,
               ),
